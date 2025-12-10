@@ -12,7 +12,7 @@ type Ordered interface {
 	~string
 }
 
-// MaxSlice 返回切片中的最大值
+// MaxSlice 返回切片中的最大值(整型，浮点型，字符串切片)
 func MaxSlice[T Ordered](slice []T) (T, error) {
 	if len(slice) == 0 {
 		var t T
@@ -29,7 +29,7 @@ func MaxSlice[T Ordered](slice []T) (T, error) {
 	return maxp, nil
 }
 
-// MinSlice 返回切片中的最小值
+// MinSlice 返回切片中的最小值(整型，浮点型，字符串切片)
 func MinSlice[T Ordered](slice []T) (T, error) {
 	if len(slice) == 0 {
 		var t T
@@ -44,4 +44,16 @@ func MinSlice[T Ordered](slice []T) (T, error) {
 		}
 	}
 	return minp, nil
+}
+
+// SliceIndex 在切片中查找 k 的下标并返回(k可以是整型，浮点型，字符串，结构体(字段必须都是comparable字段))
+func SliceIndex[T comparable](slice []T, k T) int {
+	for i, v := range slice {
+		if v == k {
+			return i
+		}
+	}
+
+	// 未找到返回 -1
+	return -1
 }
